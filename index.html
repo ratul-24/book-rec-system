@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation System - Dark Theme</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* White text */
+        }
+        .header {
+            background-color: #1f1f1f; /* Darker header */
+            padding: 1rem;
+            color: #f8f9fa; /* Light gray text */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #1f1f1f; /* Dark card background */
+            border: none;
+            color: #ffffff; /* White text */
+        }
+        .card-header {
+            background-color: #2a2a2a; /* Slightly lighter header for the card */
+            border-bottom: 1px solid #444444; /* Border for card headers */
+            color: #f8f9fa;
+        }
+        .form-control {
+            background-color: #2a2a2a; /* Dark input fields */
+            border: 1px solid #444444; /* Darker borders */
+            color: #f8f9fa;
+        }
+        .form-control:focus {
+            background-color: #2a2a2a;
+            border-color: #007bff; /* Bootstrap blue border on focus */
+            color: #ffffff;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Standard blue for buttons */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .book-card img {
+            border-radius: 5px;
+        }
+        .book-card .card-body {
+            padding: 10px;
+        }
+        .container {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Book Recommendation System</h1>
+        <p>Find your next great read!</p>
+    </div>
+
+    <div class="container">
+        <!-- Book Search Section -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Search for Book Recommendations</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/recommend_books" method="post" id="bookSearchForm">
+                            <div class="mb-3">
+                                <label for="bookName" class="form-label">Enter Book Name</label>
+                                <input type="text" class="form-control" id="bookName" name="user_input" placeholder="Type the name of the book" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get Recommendations</button>
+                        </form>
+                    </div>
+                    {% if data %}
+                    {% for i in data %}
+                    <div class="col-md-3 col-sm-6" style="margin-top: 30px;">
+                        <div class="card h-100">
+                            <img class="card-img-top img-fluid" src="{{i[2]}}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{i[0]}}</h5>
+                                <p class="card-text">{{i[1]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Popular Books Section -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Popular Books</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Loop through books and display them in a grid -->
+                    {% for i in range(book_name|length) %}
+                    <div class="col-md-3 col-sm-6" style="margin-top: 30px;">
+                        <div class="card h-100">
+                            <img class="card-img-top img-fluid" src="{{ book_img[i] }}" alt="Book Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book_name[i] }}</h5>
+                                <p class="card-text">{{ book_author[i] }}</p>
+                                <p class="card-text">Rating: {{ book_rating[i] }}</p>
+                                <p class="card-text">Votes: {{ book_votes[i] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+</body>
+</html>
